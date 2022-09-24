@@ -1,27 +1,34 @@
 body {
     margin: 0px;
 }
+
 ul {
     padding: 0px;
     margin: 0px;
     list-style: none;
 }
+
 img {
     display: block;
     max-width: 100%;
 }
+
 .slide img, .custom-controls img {
     cursor: pointer;
 }
+
 .slide-wrapper {
     overflow: hidden;
 }
+
 .slide {
     display: flex;
 }
+
 .slide:hover {
     will-change: transform;
 }
+
 .slide li {
     flex-shrink: 0;
     width: 80vh;
@@ -34,6 +41,7 @@ img {
     transform: scale(.7);
     transition: .4s;
 }
+
 .slide li.active {
     opacity: 1;
     transform: scale(1);
