@@ -1,6 +1,6 @@
 import debounce from './debounce.js';
 
-export default class Slide {
+export class Slide {
     constructor(slide, wrapper) {
         this.slide = document.querySelector(slide);
         this.wrapper = document.querySelector(wrapper);
@@ -84,7 +84,7 @@ export default class Slide {
     slideIndexNav(index) {
         const last = this.slideArray.length - 1;
         this.index = {
-            prev: index ? index -1 : undefined,
+            prev: index ? index - 1 : undefined,
             active: index,
             next: index === last ? undefined : index + 1,
         }
@@ -108,7 +108,7 @@ export default class Slide {
     }
 
     activeNextiSlide() {
-        if (this.index.prev !== undefined) this.changeSlide(this.index.next);
+        if (this.index.next !== undefined) this.changeSlide(this.index.next);
     }
 
     onResize() {
@@ -126,6 +126,8 @@ export default class Slide {
         this.onStart = this.onStart.bind(this);
         this.onMove = this.onMove.bind(this);
         this.onEnd = this.onEnd.bind(this);
+        this.activePrevSlide = this.activePrevSlide.bind(this);
+        this.activeNextSlide = this.activeNextSlide.bind(this);
         this.onResize = debounce(this.onResize.bind(this), 200);
     }
 
@@ -135,6 +137,19 @@ export default class Slide {
         this.addSlideEvents();
         this.slidesConfig();
         this.addResizeEvent();
+        this.changeSlide(2);
         return this;
+    }
+}
+
+export class SlideNav extends Slide {
+    addArrow(prev, next) {
+        this.prevElement = document.querySelector(prev);
+        this.nextElement = document.querySelector(next);
+        this.addArrowEvents();
+    }
+    addArrowEvent() {
+        this.prevElement.addEventListener('click', this.activePrevSlide);
+        this.nextElement.addEventListener('click', this.activeNextSlide);
     }
 }
